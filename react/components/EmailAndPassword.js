@@ -46,7 +46,7 @@ class EmailAndPassword extends Component {
     identifierPlaceholder: PropTypes.string,
     /** Error message for the user identifier */
     invalidIdentifierError: PropTypes.string,
-    /** Disables editing email input */
+    /** Disables email input */
     disabledEmailInput: PropTypes.bool,
   }
 
