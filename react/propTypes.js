@@ -48,7 +48,7 @@ export const LoginContainerProptypes = {
   accountOptionLinks: PropTypes.array,
   /** Terms and conditions text in markdown */
   termsAndConditions: PropTypes.string,
-  /** Disables editing in all email inputs */
+  /** Disables email inputs */
   disabledEmailInputs: PropTypes.bool,
 }
 
