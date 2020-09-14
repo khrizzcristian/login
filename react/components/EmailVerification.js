@@ -35,7 +35,7 @@ class EmailVerification extends Component {
     intl: intlShape,
     /** Whether to display the back button */
     showBackButton: PropTypes.bool,
-    /** Disables editing email input */
+    /** Disables email input */
     disabledEmailInput: PropTypes.bool,
   }
 
