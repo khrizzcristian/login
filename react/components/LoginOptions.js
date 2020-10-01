@@ -1,9 +1,10 @@
+import { ExtensionContainer, useRuntime } from 'vtex.render-runtime'
+import { Button } from 'vtex.styleguide'
+
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import React, { Fragment, useCallback, useMemo, useState } from 'react'
 import { injectIntl, intlShape } from 'react-intl'
-import { ExtensionContainer, useRuntime } from 'vtex.render-runtime'
-import { Button } from 'vtex.styleguide'
 
 import FacebookIcon from '../images/FacebookIcon'
 import GoogleIcon from '../images/GoogleIcon'
@@ -14,6 +15,7 @@ import styles from '../styles.css'
 import FormError from './FormError'
 import getErrorQuery from '../utils/getErrorQuery'
 import getOAuthErrorMessage from '../utils/getOAuthErrorMessage'
+import { steps } from '../utils/steps'
 
 const PROVIDERS_ICONS = {
   Google: GoogleIcon,
@@ -32,6 +34,11 @@ const LoginOptions = ({
   providerPasswordButtonLabel,
   currentStep,
   onOptionsClick,
+  showEmailVerification,
+  onStateChange,
+  socialLoginButtonsPosition,
+  showLoginFormTitle,
+  showRegisterOnMainScreen,
 }) => {
   const runtime = useRuntime()
   const initialOAuthErrorMessage = useMemo(() => {
@@ -52,6 +59,8 @@ const LoginOptions = ({
     [onOptionsClick]
   )
 
+
+
   const showOption = useCallback(
     (option, optionName) => {
       return (
@@ -69,14 +78,38 @@ const LoginOptions = ({
       }),
     [className, isAlwaysShown]
   )
-
   return (
     <div className={classes}>
-      <FormTitle>{title || translate(fallbackTitle, intl)}</FormTitle>
+      {showLoginFormTitle && (
+        <FormTitle>{title || translate(fallbackTitle, intl)}</FormTitle>
+      )}
       <FormError show={!!loginError}>{loginError}</FormError>
       <ul className={`${styles.optionsList} list pa0`}>
         <Fragment>
+          {options.providers &&
+            socialLoginButtonsPosition === 'top' &&
+            options.providers.map(({ providerName }, index) => {
+              // eslint-disable-next-line no-prototype-builtins
+              const hasIcon = PROVIDERS_ICONS.hasOwnProperty(providerName)
+              return (
+                <li
+                  className={`${styles.optionsListItem} mb3`}
+                  key={`${providerName}-${index}`}
+                >
+                  <OAuth
+                    provider={providerName}
+                    onLoginSuccess={onLoginSuccess}
+                    onOAuthError={handleOAuthError}
+                  >
+                    {hasIcon
+                      ? React.createElement(PROVIDERS_ICONS[providerName], null)
+                      : null}
+                  </OAuth>
+                </li>
+              )
+            })}
           {options.accessKeyAuthentication &&
+            showEmailVerification &&
             showOption(
               'accessKeyAuthentication',
               'store/loginOptions.emailVerification'
@@ -128,7 +161,9 @@ const LoginOptions = ({
               </li>
             )}
           {options.providers &&
+            socialLoginButtonsPosition === 'bottom' &&
             options.providers.map(({ providerName }, index) => {
+              // eslint-disable-next-line no-prototype-builtins
               const hasIcon = PROVIDERS_ICONS.hasOwnProperty(providerName)
               return (
                 <li
@@ -148,6 +183,30 @@ const LoginOptions = ({
               )
             })}
         </Fragment>
+        {showRegisterOnMainScreen === true ? (
+          <div
+            className={`${styles.formLinkContainerMainScreen} flex justify-center ph0 mt4`}
+          >
+            <a
+              href=""
+              className={`${styles.dontHaveAccountMainScreen} link dim c-link t-small`}
+              onClick={e =>
+                onStateChange(
+                  {
+                    step: steps.EMAIL_VERIFICATION,
+                    isCreatePassword: true,
+                    isOnInitialScreen: false,
+                  },
+                  e.preventDefault()
+                )
+              }
+            >
+              {translate('store/login.notHaveAccount', intl)}
+            </a>
+          </div>
+        ) : (
+          <></>
+        )}
         <li
           className={`${styles.optionsListItem} ${styles.optionsListItemContainer} mb3`}
         >
@@ -188,6 +247,16 @@ LoginOptions.propTypes = {
   onLoginSuccess: PropTypes.func.isRequired,
   /** Password login button text */
   providerPasswordButtonLabel: PropTypes.string,
+  /** Show Email Verification button */
+  showEmailVerification: PropTypes.bool,
+  /** Social button position ( top or bottom ) */
+  socialLoginButtonsPosition: PropTypes.string,
+  /** Display or hide login form title */
+  showLoginFormTitle: PropTypes.bool,
+  /** Function to change de active tab */
+  onStateChange: PropTypes.func.isRequired,
+  /** Function to change de active tab */
+  showRegisterOnMainScreen: PropTypes.bool,
 }
 
 export default injectIntl(LoginOptions)

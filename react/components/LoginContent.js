@@ -148,12 +148,20 @@ class LoginContent extends Component {
     termsAndConditions: PropTypes.string,
     defaultIsCreatePassword: PropTypes.bool,
     apiRedirect: PropTypes.func.isRequired,
+    showEmailVerification: PropTypes.bool,
+    socialLoginButtonsPosition: PropTypes.string,
+    showLoginFormTitle: PropTypes.bool,
+    showRegisterOnMainScreen: PropTypes.bool,
   }
 
   static defaultProps = {
     isInitialScreenOptionOnly: true,
     defaultOption: 0,
     optionsTitle: '',
+    showEmailVerification: true,
+    socialLoginButtonsPosition: "bottom",
+    showLoginFormTitle: true,
+    showRegisterOnMainScreen: false,
   }
 
   static contextTypes = {
@@ -272,6 +280,10 @@ class LoginContent extends Component {
       defaultOption,
       providerPasswordButtonLabel,
       profile,
+      showEmailVerification,
+      socialLoginButtonsPosition,
+      showLoginFormTitle,
+      showRegisterOnMainScreen,
     } = this.props
     const {
       isOnInitialScreen,
@@ -301,6 +313,11 @@ class LoginContent extends Component {
                 page="login-options"
                 fallbackTitle="store/loginOptions.title"
                 title={optionsTitle}
+                showEmailVerification={showEmailVerification}
+                socialLoginButtonsPosition={socialLoginButtonsPosition}
+                showRegisterOnMainScreen={showRegisterOnMainScreen}
+                showLoginFormTitle={showLoginFormTitle}
+                onStateChange={this.handleStateChange}
                 options={{
                   accessKeyAuthentication: options.accessKey,
                   classicAuthentication: options.password,
