@@ -129,10 +129,10 @@ Through the Storefront, you can change the `login`'s behavior and interface. How
 | `hasGoogleOneTap`   | `boolean` | ![https://img.shields.io/badge/-Beta-red](https://img.shields.io/badge/-Beta-red) Defines whether the [Google's One-tap sign-up and auto sign-in](https://developers.google.com/identity/one-tap/web/) solution is enabled (`true`) or not (`false`) .  |  `false`  |
 | `googleOneTapAlignment`     | `enum`    |  ![https://img.shields.io/badge/-Beta-red](https://img.shields.io/badge/-Beta-red) Defines pop-up alignment for the Google One-tap login. Possible values are `Left` and `Right`. | `Right`    |
 | `googleOneTapMarginTop`  | `string`  | ![https://img.shields.io/badge/-Beta-red](https://img.shields.io/badge/-Beta-red) Defines the pop-up top margin for the Google One-tap login. The values supported are the same supported by the CSS property `top`. | `3rem`       |
-| `showEmailVerification` | `boolean` | Show or hide the access key login button from login popup | true |
-| `socialLoginButtonsPosition` | `string` | Show social login buttons below or above. Possible values `top` and `bottom` | bottom |
-| `showLoginFormTitle` | `boolean` | Show or hide the title from the login popup | true |
-| `showRegisterOnMainScreen` | `boolean` | Show the register button on the main popup screen | false |
+| `showEmailVerification` | `boolean` | Whether the login form should be hidden with a key button (`true`) or not (`false`). | `true` |
+| `socialLoginButtonsPosition` | `enum` | Defines the positioning on the screen for the Facebook and Google login buttons. Possible values are: `top` and `bottom`. | `bottom` |
+| `showLoginFormTitle` | `boolean` | Whether the title for the Login form should be displayed (`true`) or not (`false`). | `true` |
+| `showRegisterOnMainScreen` | `boolean` | Whether a `Register` button should be displayed (`true`) or not (`false`). | `false` |
 
 Note that the Google One Tap props are in Beta. Although they are ready to be used, you can expect some UX and customization improvements. 
 
