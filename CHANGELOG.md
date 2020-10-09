@@ -16,6 +16,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     - formLinkContainerMainScreen
     - dontHaveAccountMainScreen
 
+## [2.38.1] - 2020-10-08
+
 ## [2.38.0] - 2020-09-16
 
 ### Changed

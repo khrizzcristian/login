@@ -73,7 +73,7 @@ Now, you can change the behavior of the `login` block that is in the store heade
   "props": {
     "emailAndPasswordTitle": "LOG-IN",
     "accessCodeTitle": "Acess Code LOG-IN",
-    "emailPraceholder": "e-mail",
+    "emailPlaceholder": "e-mail",
     "passwordPlaceholder": "password",
     "showPasswordVerificationIntoTooltip": true,
   }
